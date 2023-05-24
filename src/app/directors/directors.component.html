@@ -4,25 +4,36 @@
 <div class="container">
   <div class="row">
     <div class="col-6">
-      <form>
+      <form [formGroup]="directorForm">
         <div class="mb-3">
-          <label for="Name" class="form-label">Nombre</label>
+          <label for="name" class="form-label">Nombre</label>
           <input
             type="text"
             class="form-control"
-            id="Name"
+            id="name"
             placeholder="Nombre"
-            [(ngModel)]="director.name"
-            name="Name"
+            name="name"
+            formControlName="name"
           />
+          <ng-container *ngFor="let error of errorMessages.name">
+            <div
+              class="error-message"
+              *ngIf="
+                directorForm.get('name')?.hasError(error.type) &&
+                directorForm.get('name')?.touched
+              "
+            >
+              <p>{{ error.message }}</p>
+            </div>
+          </ng-container>
         </div>
         <div class="mb-3">
-          <label for="Nationality" class="form-label">Nacionalidad</label>
+          <label for="nationality" class="form-label">Nacionalidad</label>
           <select
             class="form-select"
-            name="Nationality"
-            id="Nationality"
-            [(ngModel)]="director.nationality"
+            name="nationality"
+            id="nationality"
+            formControlName="nationality"
           >
             <option value="MX">Mexicana</option>
             <option value="EU">Estadounidense</option>
@@ -30,32 +41,66 @@
             <option value="FR">Francesa</option>
           </select>
         </div>
+        <ng-container *ngFor="let error of errorMessages.nationality">
+          <div
+            class="error-message"
+            *ngIf="
+              directorForm.get('nationality')?.hasError(error.type) &&
+              directorForm.get('nationality')?.touched
+            "
+          >
+            <p>{{ error.message }}</p>
+          </div>
+        </ng-container>
         <div class="mb-3">
-          <label for="Age" class="form-label">Edad</label>
+          <label for="age" class="form-label">Edad</label>
           <input
             type="number"
             class="form-control"
-            id="Age"
-            name="Age"
+            id="age"
+            name="age"
             placeholder="18"
             min="18"
-            [(ngModel)]="director.age"
+            formControlName="age"
           />
+          <ng-container *ngFor="let error of errorMessages.age">
+            <div
+              class="error-message"
+              *ngIf="
+                directorForm.get('age')?.hasError(error.type) &&
+                directorForm.get('age')?.touched
+              "
+            >
+              <p>{{ error.message }}</p>
+            </div>
+          </ng-container>
         </div>
         <div class="mb-3 form-check">
           <input
             type="checkbox"
             class="form-check-input"
-            id="Active"
-            name="Active"
-            [(ngModel)]="director.active"
+            id="active"
+            name="active"
+            formControlName="active"
           />
-          <label for="Active" class="form-check-label">Activo</label>
+          <label for="active" class="form-check-label">Activo</label>
+          <ng-container *ngFor="let error of errorMessages.active">
+            <div
+              class="error-message"
+              *ngIf="
+                directorForm.get('active')?.hasError(error.type) &&
+                directorForm.get('active')?.touched
+              "
+            >
+              <p>{{ error.message }}</p>
+            </div>
+          </ng-container>
         </div>
         <div class="mb-3 d-flex justify-content-between">
           <button
             type="button"
             class="btn btn-success"
+            [disabled]="directorForm.invalid"
             (click)="saveDirector()"
           >
             Guardar
@@ -63,7 +108,7 @@
           <button
             type="button"
             class="btn btn-primary"
-            [disabled]="!director.id"
+            [disabled]="!id || directorForm.invalid"
             (click)="updateDirector()"
           >
             Actualizar
@@ -93,7 +138,7 @@
                 type="button"
                 class="btn btn-primary"
                 [routerLink]="['./', dir.id!!, 'movies']"
-                (click)="setDirector(dir.id!!)"
+                (click)="setDirector(dir)"
               >
                 <i class="bi bi-eye-fill"></i>
               </a>

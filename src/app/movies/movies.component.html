@@ -1,1 +1,100 @@
-<p>movies works!</p>
+<form>
+    <div class="mb-3">
+      <label for="Name" class="form-label">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Name"
+        placeholder="Nombre"
+        [(ngModel)]="movie.Name"
+        name="Name"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="Gender" class="form-label">Genero</label>
+      <select
+        class="form-select"
+        name="Gender"
+        id="Gender"
+        [(ngModel)]="movie.Gender"
+      >
+        <option value="terror">Terror</option>
+        <option value="aventura">Aventura</option>
+        <option value="thriller">Thriller</option>
+        <option value="comedia">Comedia</option>
+      </select>
+    </div>
+    <div class="mb-3">
+        <label for="Release_Year" class="form-label">Fecha de lanzamiento</label>
+        <input
+        type="date"
+          class="form-control"
+          name="Release_Year"
+          id="Release_Year"
+          [(ngModel)]="movie.Release_Year"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="Duration" class="form-label">Duraci&oacute;n</label>
+        <input
+        type="time"
+          class="form-control"
+          name="Duration"
+          id="Duration"
+          [(ngModel)]="movie.Duration"
+        />
+      </div>
+    <div class="mb-3 d-flex justify-content-between">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="saveMovie()"
+      >
+        Guardar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="updateMovie()"
+      >
+        Actualizar
+      </button>
+    </div>
+  </form>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col"><i class="bi bi-calendar-check"></i></th>
+        <th scope="col"><i class="bi bi-alarm-fill"></i></th>
+        <th scope="col">Genero</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Titanic</td>
+        <td>1999-10-2</td>
+        <td>01:30:00</td>
+        <td>thriller</td>
+        <td class="d-flex justify-content-between">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="getMovie()"
+          >
+            <i class="bi bi-eye-fill"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteMovie()"
+          >
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

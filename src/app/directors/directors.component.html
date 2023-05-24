@@ -1,0 +1,114 @@
+<div class="container text-center">
+  <h1>Directors And Them Movies</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <form>
+        <div class="mb-3">
+          <label for="Name" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Name"
+            placeholder="Nombre"
+            [(ngModel)]="director.Name"
+            name="Name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="Nationality" class="form-label">Nacionalidad</label>
+          <select
+            class="form-select"
+            name="Nationality"
+            id="Nationality"
+            [(ngModel)]="director.Nationality"
+          >
+            <option value="MX">Mexicana</option>
+            <option value="EU">Estadounidense</option>
+            <option value="SP">Española</option>
+            <option value="FR">Francesa</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="Age" class="form-label">Edad</label>
+          <input
+            type="number"
+            class="form-control"
+            id="Age"
+            name="Age"
+            placeholder="18"
+            min="18"
+            [(ngModel)]="director.Age"
+          />
+        </div>
+        <div class="mb-3 form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="Active"
+            name="Active"
+            [(ngModel)]="director.Active"
+          />
+          <label for="Active" class="form-check-label">Activo</label>
+        </div>
+        <div class="mb-3 d-flex justify-content-between">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="saveDirector()"
+          >
+            Guardar
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="updateDirector()"
+          >
+            Actualizar
+          </button>
+        </div>
+      </form>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Nacionalidad</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Activo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Juan</td>
+            <td>MX</td>
+            <td>18</td>
+            <td>Si</td>
+            <td class="d-flex justify-content-between">
+              <a
+                type="button"
+                class="btn btn-primary"
+                [routerLink]="['./', 1, 'movies']"
+              >
+                <i class="bi bi-eye-fill"></i>
+              </a>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="deleteDirector()"
+              >
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6" *ngIf="router.url != '/'">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -93,6 +93,9 @@ export class DirectorsComponent implements OnInit {
         this.directors = this.directors.map((d) =>
           d.id === director.id ? director : d
         );
+        this.directorForm.reset();
+        this.router.navigateByUrl('');
+        this.id = undefined;
       });
   }
 
@@ -100,6 +103,8 @@ export class DirectorsComponent implements OnInit {
     this.directorsService.deleteDirector(id).subscribe((director) => {
       this.directors = this.directors.filter((d) => d.id !== id);
       this.router.navigateByUrl('');
+      this.directorForm.reset();
+      this.id = undefined;
     });
   }
 

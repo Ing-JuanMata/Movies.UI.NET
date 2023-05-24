@@ -106,6 +106,8 @@ export class MoviesComponent implements OnInit {
     this.moviesService.deleteMovie(id).subscribe(() => {
       const index = this.movies.findIndex((m) => m.id === id);
       this.movies.splice(index, 1);
+      this.movieForm.reset();
+      this.id = undefined;
     });
   }
   setMovie(movie: Movie) {

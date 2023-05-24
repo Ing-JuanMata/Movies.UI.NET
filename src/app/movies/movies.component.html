@@ -6,7 +6,7 @@
         class="form-control"
         id="Name"
         placeholder="Nombre"
-        [(ngModel)]="movie.Name"
+        [(ngModel)]="movie.name"
         name="Name"
       />
     </div>
@@ -16,7 +16,7 @@
         class="form-select"
         name="Gender"
         id="Gender"
-        [(ngModel)]="movie.Gender"
+        [(ngModel)]="movie.gender"
       >
         <option value="terror">Terror</option>
         <option value="aventura">Aventura</option>
@@ -31,7 +31,7 @@
           class="form-control"
           name="Release_Year"
           id="Release_Year"
-          [(ngModel)]="movie.Release_Year"
+          [(ngModel)]="movie.release_Year"
         />
       </div>
       <div class="mb-3">
@@ -41,7 +41,7 @@
           class="form-control"
           name="Duration"
           id="Duration"
-          [(ngModel)]="movie.Duration"
+          [(ngModel)]="movie.duration"
         />
       </div>
     <div class="mb-3 d-flex justify-content-between">
@@ -55,6 +55,7 @@
       <button
         type="button"
         class="btn btn-primary"
+        [disabled]="!movie.id"
         (click)="updateMovie()"
       >
         Actualizar
@@ -73,24 +74,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Titanic</td>
-        <td>1999-10-2</td>
-        <td>01:30:00</td>
-        <td>thriller</td>
+      <tr *ngFor="let mov of movies">
+        <th scope="row">{{mov.id}}</th>
+        <td>{{mov.name}}</td>
+        <td>{{mov.release_Year | date: 'dd/MM/yyyy'}}</td>
+        <td>{{mov.duration}}</td>
+        <td>{{mov.gender}}</td>
         <td class="d-flex justify-content-between">
           <button
             type="button"
             class="btn btn-primary"
-            (click)="getMovie()"
+            (click)="getMovie(mov.id!!)"
           >
             <i class="bi bi-eye-fill"></i>
           </button>
           <button
             type="button"
             class="btn btn-danger"
-            (click)="deleteMovie()"
+            (click)="deleteMovie(mov.id!!)"
           >
             <i class="bi bi-trash-fill"></i>
           </button>

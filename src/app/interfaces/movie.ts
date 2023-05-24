@@ -1,8 +1,8 @@
 export interface Movie {
-  Id?: number;
-  Name: string;
-  Release_Year: Date;
-  Gender: string;
-  Duration: string;
-  Director: number;
+  id?: number;
+  name: string;
+  release_Year: Date;
+  gender: string;
+  duration: string;
+  director: number;
 }

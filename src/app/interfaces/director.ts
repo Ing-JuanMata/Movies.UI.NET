@@ -1,7 +1,7 @@
 export interface Director {
-  Id?: number;
-  Name: string;
-  Nationality: string;
-  Age: number;
-  Active: boolean;
+  id?: number;
+  name: string;
+  nationality: string;
+  age: number;
+  active: boolean;
 }

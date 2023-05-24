@@ -12,7 +12,7 @@
             class="form-control"
             id="Name"
             placeholder="Nombre"
-            [(ngModel)]="director.Name"
+            [(ngModel)]="director.name"
             name="Name"
           />
         </div>
@@ -22,7 +22,7 @@
             class="form-select"
             name="Nationality"
             id="Nationality"
-            [(ngModel)]="director.Nationality"
+            [(ngModel)]="director.nationality"
           >
             <option value="MX">Mexicana</option>
             <option value="EU">Estadounidense</option>
@@ -39,7 +39,7 @@
             name="Age"
             placeholder="18"
             min="18"
-            [(ngModel)]="director.Age"
+            [(ngModel)]="director.age"
           />
         </div>
         <div class="mb-3 form-check">
@@ -48,7 +48,7 @@
             class="form-check-input"
             id="Active"
             name="Active"
-            [(ngModel)]="director.Active"
+            [(ngModel)]="director.active"
           />
           <label for="Active" class="form-check-label">Activo</label>
         </div>
@@ -63,6 +63,7 @@
           <button
             type="button"
             class="btn btn-primary"
+            [disabled]="!director.id"
             (click)="updateDirector()"
           >
             Actualizar
@@ -81,24 +82,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Juan</td>
-            <td>MX</td>
-            <td>18</td>
-            <td>Si</td>
+          <tr *ngFor="let dir of directors">
+            <th scope="row">{{ dir.id }}</th>
+            <td>{{ dir.name }}</td>
+            <td>{{ dir.nationality }}</td>
+            <td>{{ dir.age }}</td>
+            <td>{{ dir.active ? "SI" : "NO" }}</td>
             <td class="d-flex justify-content-between">
               <a
                 type="button"
                 class="btn btn-primary"
-                [routerLink]="['./', 1, 'movies']"
+                [routerLink]="['./', dir.id!!, 'movies']"
+                (click)="setDirector(dir.id!!)"
               >
                 <i class="bi bi-eye-fill"></i>
               </a>
               <button
                 type="button"
                 class="btn btn-danger"
-                (click)="deleteDirector()"
+                (click)="deleteDirector(dir.id!!)"
               >
                 <i class="bi bi-trash-fill"></i>
               </button>

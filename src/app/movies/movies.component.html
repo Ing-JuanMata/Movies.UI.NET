@@ -1,22 +1,33 @@
-<form>
+<form [formGroup]="movieForm">
     <div class="mb-3">
-      <label for="Name" class="form-label">Nombre</label>
+      <label for="name" class="form-label">Nombre</label>
       <input
         type="text"
         class="form-control"
-        id="Name"
+        id="name"
         placeholder="Nombre"
-        [(ngModel)]="movie.name"
-        name="Name"
+        formControlName="name"
+        name="name"
       />
+      <ng-container *ngFor="let error of errorMessages.name">
+        <div
+          class="error-message"
+          *ngIf="
+            movieForm.get('name')?.hasError(error.type) &&
+            movieForm.get('name')?.touched
+          "
+        >
+          <p>{{ error.message }}</p>
+        </div>
+      </ng-container>
     </div>
     <div class="mb-3">
-      <label for="Gender" class="form-label">Genero</label>
+      <label for="gender" class="form-label">Genero</label>
       <select
         class="form-select"
-        name="Gender"
-        id="Gender"
-        [(ngModel)]="movie.gender"
+        name="gender"
+        id="gender"
+        formControlName="gender"
       >
         <option value="terror">Terror</option>
         <option value="aventura">Aventura</option>
@@ -25,29 +36,52 @@
       </select>
     </div>
     <div class="mb-3">
-        <label for="Release_Year" class="form-label">Fecha de lanzamiento</label>
+        <label for="release_Year" class="form-label">Fecha de lanzamiento</label>
         <input
         type="date"
           class="form-control"
-          name="Release_Year"
-          id="Release_Year"
-          [(ngModel)]="movie.release_Year"
+          name="release_Year"
+          id="release_Year"
+          formControlName="release_Year"
         />
+        <ng-container *ngFor="let error of errorMessages.release_Year">
+          <div
+            class="error-message"
+            *ngIf="
+              movieForm.get('release_Year')?.hasError(error.type) &&
+              movieForm.get('release_Year')?.touched
+            "
+          >
+            <p>{{ error.message }}</p>
+          </div>
+        </ng-container>
       </div>
       <div class="mb-3">
-        <label for="Duration" class="form-label">Duraci&oacute;n</label>
+        <label for="duration" class="form-label">Duraci&oacute;n</label>
         <input
         type="time"
           class="form-control"
-          name="Duration"
-          id="Duration"
-          [(ngModel)]="movie.duration"
+          name="duration"
+          id="duration"
+          formControlName="duration"
         />
+        <ng-container *ngFor="let error of errorMessages.duration">
+          <div
+            class="error-message"
+            *ngIf="
+              movieForm.get('duration')?.hasError(error.type) &&
+              movieForm.get('duration')?.touched
+            "
+          >
+            <p>{{ error.message }}</p>
+          </div>
+        </ng-container>
       </div>
     <div class="mb-3 d-flex justify-content-between">
       <button
         type="button"
         class="btn btn-success"
+        [disabled]="!movieForm.valid"
         (click)="saveMovie()"
       >
         Guardar
@@ -55,7 +89,7 @@
       <button
         type="button"
         class="btn btn-primary"
-        [disabled]="!movie.id"
+        [disabled]="!id || !movieForm.valid"
         (click)="updateMovie()"
       >
         Actualizar
@@ -84,7 +118,7 @@
           <button
             type="button"
             class="btn btn-primary"
-            (click)="getMovie(mov.id!!)"
+            (click)="setMovie(mov)"
           >
             <i class="bi bi-eye-fill"></i>
           </button>

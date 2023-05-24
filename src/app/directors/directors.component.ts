@@ -47,7 +47,7 @@ export class DirectorsComponent implements OnInit {
 
     this.errorMessages = {
       name: [
-        { type: 'required', message: 'Se require un nombre' },
+        { type: 'required', message: 'Se requiere un nombre' },
         { type: 'pattern', message: 'El nombre solo puede contener letras' },
       ],
       nationality: [
@@ -76,11 +76,13 @@ export class DirectorsComponent implements OnInit {
   }
 
   saveDirector() {
+    if (this.id) return this.updateDirector();
     this.directorsService
       .saveDirector({ ...this.directorForm.getRawValue() })
       .subscribe((director) => {
         this.directors.push(director);
         this.directorForm.reset();
+        this.router.navigateByUrl('');
       });
   }
 

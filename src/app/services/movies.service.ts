@@ -8,7 +8,25 @@ import { Movie } from '../interfaces/movie';
 export class MoviesService {
   constructor(private httpClient: HttpClient) {}
 
-  getMovies() {
-    return this.httpClient.get<Movie[]>('https://localhost:7200/api/movies');
+  getMovies(id:number) {
+    return this.httpClient.get<Movie[]>(`https://localhost:7200/api/movies/${id}`);
+  }
+
+  saveMovie(movie: Movie) {
+    return this.httpClient.post<Movie>(
+      'https://localhost:7200/api/movies',
+      movie
+    );
+  }
+
+  updateMovie(movie: Movie) {
+    return this.httpClient.put<Movie>(
+      `https://localhost:7200/api/movies/${movie.id}`,
+      movie
+    );
+  }
+
+  deleteMovie(id: number) {
+    return this.httpClient.delete(`https://localhost:7200/api/movies/${id}`);
   }
 }
